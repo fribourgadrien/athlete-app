@@ -63,6 +63,10 @@ AthleteApp/
 
 Licenses under `AthleteApp/Fonts/`.
 
+## TestFlight
+
+See [TESTFLIGHT.md](TESTFLIGHT.md). Requires a paid Apple Developer Program membership.
+
 ## Notes
 
 - Prefer editing `project.yml` then `xcodegen generate`.
