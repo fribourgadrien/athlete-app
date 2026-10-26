@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 /// Design tokens inspired by White & Case 2026 identity:
 /// electric cobalt + near-black + paper. Cobalt used sparingly for brand signal / CTAs.
@@ -37,22 +38,109 @@ enum AppTheme {
     }
 }
 
+/// Type pairing inspired by W&C custom stack (serif headline + institutional sans).
+/// Bundled: Source Serif 4 (display) + IBM Plex Sans (UI) — not a clone of proprietary WC faces.
 enum AppFont {
     static func display(_ size: CGFloat, weight: Font.Weight = .regular) -> Font {
-        .system(size: size, weight: weight, design: .serif)
+        .custom(serifName(for: weight), size: size)
     }
 
     static func displayItalic(_ size: CGFloat, weight: Font.Weight = .regular) -> Font {
-        // Serif italic as intentional accent (W&C-style), not decoration noise
-        .system(size: size, weight: weight, design: .serif).italic()
+        // Dedicated italic cut — W&C-style intentional italic accent
+        .custom("SourceSerif4-Italic", size: size)
     }
 
     static func ui(_ size: CGFloat, weight: Font.Weight = .regular) -> Font {
-        .system(size: size, weight: weight, design: .default)
+        .custom(sansName(for: weight), size: size)
     }
 
     static func label(_ size: CGFloat = 11) -> Font {
-        .system(size: size, weight: .semibold, design: .default)
+        .custom("IBMPlexSans-SemiBold", size: size)
+    }
+
+    static func uiKitSerif(size: CGFloat, weight: Font.Weight = .bold) -> UIFont {
+        UIFont(name: serifName(for: weight), size: size)
+            ?? .systemFont(ofSize: size, weight: .bold)
+    }
+
+    static func uiKitSans(size: CGFloat, weight: Font.Weight = .medium) -> UIFont {
+        UIFont(name: sansName(for: weight), size: size)
+            ?? .systemFont(ofSize: size, weight: .medium)
+    }
+
+    private static func serifName(for weight: Font.Weight) -> String {
+        switch weight {
+        case .bold, .heavy, .black:
+            return "SourceSerif4-Bold"
+        case .semibold, .medium:
+            return "SourceSerif4-SemiBold"
+        default:
+            return "SourceSerif4-Regular"
+        }
+    }
+
+    private static func sansName(for weight: Font.Weight) -> String {
+        switch weight {
+        case .bold, .heavy, .black:
+            return "IBMPlexSans-Bold"
+        case .semibold:
+            return "IBMPlexSans-SemiBold"
+        case .medium:
+            return "IBMPlexSans-Medium"
+        default:
+            return "IBMPlexSans-Regular"
+        }
+    }
+}
+
+enum AppTypography {
+    /// Apply brand fonts to system navigation chrome once at launch.
+    static func configureNavigationChrome() {
+        let paper = UIColor(AppTheme.paper)
+        let ink = UIColor(AppTheme.ink)
+
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = paper
+        appearance.shadowColor = UIColor(AppTheme.rule)
+        appearance.largeTitleTextAttributes = [
+            .font: AppFont.uiKitSerif(size: 34, weight: .bold),
+            .foregroundColor: ink
+        ]
+        appearance.titleTextAttributes = [
+            .font: AppFont.uiKitSans(size: 17, weight: .medium),
+            .foregroundColor: ink
+        ]
+
+        let nav = UINavigationBar.appearance()
+        nav.standardAppearance = appearance
+        nav.scrollEdgeAppearance = appearance
+        nav.compactAppearance = appearance
+        nav.tintColor = UIColor(AppTheme.cobalt)
+
+        let tab = UITabBarAppearance()
+        tab.configureWithOpaqueBackground()
+        tab.backgroundColor = paper
+        tab.shadowColor = UIColor(AppTheme.rule)
+        let item = UITabBarItemAppearance()
+        let tabFont = AppFont.uiKitSans(size: 10, weight: .medium)
+        item.normal.titleTextAttributes = [
+            .font: tabFont,
+            .foregroundColor: UIColor(AppTheme.muted)
+        ]
+        item.selected.titleTextAttributes = [
+            .font: tabFont,
+            .foregroundColor: UIColor(AppTheme.cobalt)
+        ]
+        tab.stackedLayoutAppearance = item
+        tab.inlineLayoutAppearance = item
+        tab.compactInlineLayoutAppearance = item
+
+        let tabBar = UITabBar.appearance()
+        tabBar.standardAppearance = tab
+        tabBar.scrollEdgeAppearance = tab
+        tabBar.tintColor = UIColor(AppTheme.cobalt)
+        tabBar.unselectedItemTintColor = UIColor(AppTheme.muted)
     }
 }
 

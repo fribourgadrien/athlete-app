@@ -49,6 +49,15 @@ AthleteApp/
     Inbox/         # Threads + requests stub
 ```
 
+## Typography
+
+Bundled brand pairing (White & Case–inspired, not their proprietary faces):
+
+- **Source Serif 4** — display / wordmark / stats
+- **IBM Plex Sans** — UI body and chrome
+
+Licenses ship under `AthleteApp/Fonts/`.
+
 ## Notes
 
 - `AthleteApp.xcodeproj` is generated; prefer editing `project.yml` then re-running `xcodegen generate`.

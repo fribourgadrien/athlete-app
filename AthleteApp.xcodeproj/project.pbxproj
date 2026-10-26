@@ -10,16 +10,26 @@
 		01B08304770BCF64C6C7CBA7 /* AthleteProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90D552E35DD0CDBEA467D440 /* AthleteProfileView.swift */; };
 		040CCFE540D97CAB1C0E06F3 /* DiscoveryFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA1A0E5DF8422032180C67D4 /* DiscoveryFeedView.swift */; };
 		0B3665F7E2960A3A2B49962E /* AthleteProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FDE6E135A22182A6D38AC4 /* AthleteProfile.swift */; };
+		199722FAEDFF8247463E224F /* SourceSerif4-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0BCF627C5E8DD299B051AB9A /* SourceSerif4-Bold.ttf */; };
 		1B9D274538687E27FEC97820 /* ProfileDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2A35499D2045BEF2AB187B /* ProfileDetailView.swift */; };
 		1E1DD419CAF6E25B38B02BAE /* InboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D313D1C5A9324BB945AACE8 /* InboxView.swift */; };
 		2059C823728231ECABC019C3 /* RolePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22CD5EB01DDB47449B9B65EB /* RolePickerView.swift */; };
 		247684556AD772A62A63B300 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDA1302C7953B1D3CB9FE8C8 /* MainTabView.swift */; };
 		26D4C182B30E685981AE85E5 /* ConnectRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE159F3E5F9B0FEDAE41CACC /* ConnectRequestView.swift */; };
+		3193BE2FCB2B35229B1E06BE /* IBMPlexSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 788C73393F8DD05FAD6A01C1 /* IBMPlexSans-Regular.ttf */; };
+		4475C2894C73497DABBE056D /* SourceSerif4-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F83C9944DD80BFB8A43F2A21 /* SourceSerif4-SemiBold.ttf */; };
 		4746EE2DCDD13491768A3A41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F808DAE705A47291DCC022D7 /* Assets.xcassets */; };
 		48A9C70156A8A0E7D9954D9D /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC99ED0BDC11698A21EC957 /* MockData.swift */; };
 		50ED23E66DFB8EA8065EE175 /* SharedChrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05C27589F0226FCCB5CC956 /* SharedChrome.swift */; };
+		5694F6BAF45A61E8A0312379 /* IBM-PLEX-LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 31AA2C1F6492C08497E6A410 /* IBM-PLEX-LICENSE.txt */; };
+		5F56EB8E1A2E67E1DA91138F /* SOURCE-SERIF-LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = 284CC0E390D488B4F1397D1D /* SOURCE-SERIF-LICENSE.md */; };
 		61351F6B0F231FC8671496D3 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169BF0E4DB63C092ABFD5904 /* AppTheme.swift */; };
+		79B1F8DAF2D6A69E6874AFC2 /* IBMPlexSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 96C05BB17E0813AC5981AD0B /* IBMPlexSans-Medium.ttf */; };
+		7F60C6AAA63DEA2FDEDD2992 /* IBMPlexSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F61D265FA60AED365A0449C3 /* IBMPlexSans-SemiBold.ttf */; };
+		9479D2B76F74B05A2DE6F982 /* IBMPlexSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 19250AA8B908C94D32568305 /* IBMPlexSans-Bold.ttf */; };
+		9974194698EDF55789386A3C /* SourceSerif4-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6A0020FFD7B110144C46FCE5 /* SourceSerif4-Regular.ttf */; };
 		A369110D114206B1CE7134EA /* UserRole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD280975C03B144D5170C0D /* UserRole.swift */; };
+		A5B9859DA9C404595290A93C /* SourceSerif4-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7FDF2365FFB710786E3B9ADF /* SourceSerif4-Italic.ttf */; };
 		A6BD1C93FBF23302151965BE /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BC497A855603634BA6FA17 /* AppStore.swift */; };
 		C746067BAE1DA05EC0EF7986 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F61709A47D3C5DC1E96D08 /* ContentView.swift */; };
 		E5ADB8923670108C4B9E9BCF /* AthleteAppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0CEEF801BD2A36F6A323E9 /* AthleteAppApp.swift */; };
@@ -27,14 +37,22 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0BCF627C5E8DD299B051AB9A /* SourceSerif4-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSerif4-Bold.ttf"; sourceTree = "<group>"; };
 		169BF0E4DB63C092ABFD5904 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
+		19250AA8B908C94D32568305 /* IBMPlexSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSans-Bold.ttf"; sourceTree = "<group>"; };
 		22CD5EB01DDB47449B9B65EB /* RolePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RolePickerView.swift; sourceTree = "<group>"; };
+		284CC0E390D488B4F1397D1D /* SOURCE-SERIF-LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "SOURCE-SERIF-LICENSE.md"; sourceTree = "<group>"; };
 		2BC99ED0BDC11698A21EC957 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
+		31AA2C1F6492C08497E6A410 /* IBM-PLEX-LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "IBM-PLEX-LICENSE.txt"; sourceTree = "<group>"; };
 		4A0CEEF801BD2A36F6A323E9 /* AthleteAppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AthleteAppApp.swift; sourceTree = "<group>"; };
 		5CD280975C03B144D5170C0D /* UserRole.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRole.swift; sourceTree = "<group>"; };
+		6A0020FFD7B110144C46FCE5 /* SourceSerif4-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSerif4-Regular.ttf"; sourceTree = "<group>"; };
+		788C73393F8DD05FAD6A01C1 /* IBMPlexSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSans-Regular.ttf"; sourceTree = "<group>"; };
 		7D313D1C5A9324BB945AACE8 /* InboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxView.swift; sourceTree = "<group>"; };
+		7FDF2365FFB710786E3B9ADF /* SourceSerif4-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSerif4-Italic.ttf"; sourceTree = "<group>"; };
 		8103447888DCA25C984A28DA /* ConnectionModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionModels.swift; sourceTree = "<group>"; };
 		90D552E35DD0CDBEA467D440 /* AthleteProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AthleteProfileView.swift; sourceTree = "<group>"; };
+		96C05BB17E0813AC5981AD0B /* IBMPlexSans-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSans-Medium.ttf"; sourceTree = "<group>"; };
 		BA1A0E5DF8422032180C67D4 /* DiscoveryFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryFeedView.swift; sourceTree = "<group>"; };
 		C05C27589F0226FCCB5CC956 /* SharedChrome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedChrome.swift; sourceTree = "<group>"; };
 		C94C276FF440CE01DA6A1CB4 /* AthleteApp.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = AthleteApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,7 +62,9 @@
 		E7FDE6E135A22182A6D38AC4 /* AthleteProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AthleteProfile.swift; sourceTree = "<group>"; };
 		EDA1302C7953B1D3CB9FE8C8 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		F1F61709A47D3C5DC1E96D08 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		F61D265FA60AED365A0449C3 /* IBMPlexSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		F808DAE705A47291DCC022D7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F83C9944DD80BFB8A43F2A21 /* SourceSerif4-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SourceSerif4-SemiBold.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -79,6 +99,23 @@
 				C94C276FF440CE01DA6A1CB4 /* AthleteApp.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		49AE3FCFED10927EAF2CB7DF /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				31AA2C1F6492C08497E6A410 /* IBM-PLEX-LICENSE.txt */,
+				19250AA8B908C94D32568305 /* IBMPlexSans-Bold.ttf */,
+				96C05BB17E0813AC5981AD0B /* IBMPlexSans-Medium.ttf */,
+				788C73393F8DD05FAD6A01C1 /* IBMPlexSans-Regular.ttf */,
+				F61D265FA60AED365A0449C3 /* IBMPlexSans-SemiBold.ttf */,
+				284CC0E390D488B4F1397D1D /* SOURCE-SERIF-LICENSE.md */,
+				0BCF627C5E8DD299B051AB9A /* SourceSerif4-Bold.ttf */,
+				7FDF2365FFB710786E3B9ADF /* SourceSerif4-Italic.ttf */,
+				6A0020FFD7B110144C46FCE5 /* SourceSerif4-Regular.ttf */,
+				F83C9944DD80BFB8A43F2A21 /* SourceSerif4-SemiBold.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		5974321D6C0E757833F68D44 /* Models */ = {
@@ -152,6 +189,7 @@
 				F1F61709A47D3C5DC1E96D08 /* ContentView.swift */,
 				FBD43CE69599662040AC81FB /* Data */,
 				6E54BE520DBE40E5FE8B3664 /* Features */,
+				49AE3FCFED10927EAF2CB7DF /* Fonts */,
 				5974321D6C0E757833F68D44 /* Models */,
 				172D9C69CF1B0DBE9DEF22BB /* Navigation */,
 				011858BEAE36C3AD5A6BF858 /* Theme */,
@@ -225,6 +263,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				4746EE2DCDD13491768A3A41 /* Assets.xcassets in Resources */,
+				5694F6BAF45A61E8A0312379 /* IBM-PLEX-LICENSE.txt in Resources */,
+				9479D2B76F74B05A2DE6F982 /* IBMPlexSans-Bold.ttf in Resources */,
+				79B1F8DAF2D6A69E6874AFC2 /* IBMPlexSans-Medium.ttf in Resources */,
+				3193BE2FCB2B35229B1E06BE /* IBMPlexSans-Regular.ttf in Resources */,
+				7F60C6AAA63DEA2FDEDD2992 /* IBMPlexSans-SemiBold.ttf in Resources */,
+				5F56EB8E1A2E67E1DA91138F /* SOURCE-SERIF-LICENSE.md in Resources */,
+				199722FAEDFF8247463E224F /* SourceSerif4-Bold.ttf in Resources */,
+				A5B9859DA9C404595290A93C /* SourceSerif4-Italic.ttf in Resources */,
+				9974194698EDF55789386A3C /* SourceSerif4-Regular.ttf in Resources */,
+				4475C2894C73497DABBE056D /* SourceSerif4-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,11 +312,8 @@
 				ASSETCATALOG_COMPILER_GLOBALACCENTCOLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Athlete;
+				INFOPLIST_FILE = AthleteApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -288,11 +333,8 @@
 				ASSETCATALOG_COMPILER_GLOBALACCENTCOLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = Athlete;
+				INFOPLIST_FILE = AthleteApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

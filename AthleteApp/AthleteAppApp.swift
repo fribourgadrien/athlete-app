@@ -4,6 +4,10 @@ import SwiftUI
 struct AthleteAppApp: App {
     @StateObject private var store = AppStore()
 
+    init() {
+        AppTypography.configureNavigationChrome()
+    }
+
     var body: some Scene {
         WindowGroup {
             ContentView()
