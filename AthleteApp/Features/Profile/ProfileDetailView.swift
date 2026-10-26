@@ -8,6 +8,10 @@ struct ProfileDetailView: View {
         store.status(for: athlete.id)
     }
 
+    private var clips: [HighlightClip] {
+        store.highlights(for: athlete.id)
+    }
+
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 28) {
@@ -17,7 +21,10 @@ struct ProfileDetailView: View {
                 Hairline()
                 about
                 achievements
-                connectCTA
+                if !clips.isEmpty {
+                    highlights
+                }
+                actions
             }
             .padding(.horizontal, 20)
             .padding(.top, 12)
@@ -27,6 +34,15 @@ struct ProfileDetailView: View {
         .navigationTitle(athlete.displayName)
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(AppTheme.paper, for: .navigationBar)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(store.isShortlisted(athlete.id) ? "Saved" : "Save") {
+                    store.toggleShortlist(athlete)
+                }
+                .font(AppFont.ui(14, weight: .medium))
+                .foregroundStyle(AppTheme.cobalt)
+            }
+        }
     }
 
     private var hero: some View {
@@ -74,9 +90,30 @@ struct ProfileDetailView: View {
         }
     }
 
+    private var highlights: some View {
+        ProfileSection(title: "Highlights") {
+            ForEach(clips) { clip in
+                NavigationLink {
+                    HighlightDetailView(clip: clip)
+                } label: {
+                    HStack {
+                        Text(clip.title)
+                            .font(AppFont.ui(14))
+                            .foregroundStyle(AppTheme.ink)
+                        Spacer()
+                        Text(clip.durationLabel)
+                            .font(AppFont.ui(12))
+                            .foregroundStyle(AppTheme.muted)
+                    }
+                }
+                .buttonStyle(.plain)
+            }
+        }
+    }
+
     @ViewBuilder
-    private var connectCTA: some View {
-        Group {
+    private var actions: some View {
+        VStack(spacing: 10) {
             switch status {
             case .none:
                 NavigationLink {

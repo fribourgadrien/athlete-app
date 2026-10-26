@@ -16,6 +16,7 @@ struct AthleteProfileView: View {
                 achievementsSection
                 highlightsSection
                 lookingForSection
+                networkSection
             }
             .padding(.horizontal, 20)
             .padding(.top, 8)
@@ -26,12 +27,23 @@ struct AthleteProfileView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(AppTheme.paper, for: .navigationBar)
         .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Button("Switch role") {
-                    store.resetOnboarding()
+            ToolbarItem(placement: .topBarLeading) {
+                NavigationLink {
+                    SettingsView()
+                } label: {
+                    Image(systemName: "gearshape")
+                        .font(AppFont.ui(15, weight: .medium))
+                        .foregroundStyle(AppTheme.ink)
                 }
-                .font(AppFont.ui(14, weight: .medium))
-                .foregroundStyle(AppTheme.cobalt)
+            }
+            ToolbarItem(placement: .topBarTrailing) {
+                NavigationLink {
+                    EditAthleteProfileView(profile: athlete)
+                } label: {
+                    Text("Edit")
+                        .font(AppFont.ui(14, weight: .medium))
+                        .foregroundStyle(AppTheme.cobalt)
+                }
             }
         }
     }
@@ -94,10 +106,30 @@ struct AthleteProfileView: View {
 
     private var highlightsSection: some View {
         ProfileSection(title: "Highlights") {
-            ForEach(athlete.highlightTitles, id: \.self) { title in
-                Text(title)
-                    .font(AppFont.ui(14))
-                    .foregroundStyle(AppTheme.ink)
+            let clips = store.highlights(for: athlete.id)
+            if clips.isEmpty {
+                ForEach(athlete.highlightTitles, id: \.self) { title in
+                    Text(title)
+                        .font(AppFont.ui(14))
+                        .foregroundStyle(AppTheme.ink)
+                }
+            } else {
+                ForEach(clips) { clip in
+                    NavigationLink {
+                        HighlightDetailView(clip: clip)
+                    } label: {
+                        HStack {
+                            Text(clip.title)
+                                .font(AppFont.ui(14))
+                                .foregroundStyle(AppTheme.ink)
+                            Spacer()
+                            Text(clip.durationLabel)
+                                .font(AppFont.ui(12))
+                                .foregroundStyle(AppTheme.muted)
+                        }
+                    }
+                    .buttonStyle(.plain)
+                }
             }
         }
     }
@@ -105,6 +137,31 @@ struct AthleteProfileView: View {
     private var lookingForSection: some View {
         ProfileSection(title: "Looking for") {
             FlowTags(tags: athlete.lookingFor)
+        }
+    }
+
+    private var networkSection: some View {
+        ProfileSection(title: "Network") {
+            NavigationLink {
+                ConnectionsView()
+            } label: {
+                LabeledValue(label: "Connections", value: "\(store.connectedAthletes.count)")
+            }
+            .buttonStyle(.plain)
+
+            NavigationLink {
+                ShortlistView()
+            } label: {
+                LabeledValue(label: "Saved", value: "\(store.shortlistedAthletes.count)")
+            }
+            .buttonStyle(.plain)
+
+            NavigationLink {
+                NotificationsView()
+            } label: {
+                LabeledValue(label: "Notifications", value: store.unreadNotificationCount > 0 ? "\(store.unreadNotificationCount) new" : "None")
+            }
+            .buttonStyle(.plain)
         }
     }
 }

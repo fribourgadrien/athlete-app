@@ -17,49 +17,53 @@ xcodegen generate
 open AthleteApp.xcodeproj
 ```
 
-In Xcode:
-
-1. Select the **AthleteApp** scheme
-2. Choose an iPhone simulator (or a device)
-3. Press **Run** (⌘R)
+In Xcode: select **AthleteApp** → iPhone simulator → Run (⌘R).
 
 ### First-run flow
 
-1. **Onboarding** — pick Athlete or Scout / Recruiter  
-2. **Profile** — mock athlete profile (Jordan Okeke)  
-3. **Discover** — search/filter soccer athletes, open detail  
-4. **Connect** — send a connection request (local state)  
-5. **Inbox** — stub threads + incoming request accept  
+1. **Onboarding** — Athlete or Scout / Recruiter  
+2. **Home / Pipeline** — activity feed (athlete) or shortlist pipeline (scout)  
+3. **Discover** — search/filter → profile detail → Connect / Save  
+4. **Inbox** — requests + threads  
+5. **Profile** — own athlete or scout identity, Edit, Settings  
 
-Use **Switch role** on Profile to return to onboarding.
+See [SCREEN_MAP.md](SCREEN_MAP.md) for the full inventory.
+
+## Tabs
+
+| Tab | Athlete | Scout |
+|-----|---------|-------|
+| Home | Network activity | Pipeline + shortlist |
+| Discover | Search athletes | Same |
+| Inbox | Requests + messages | Same |
+| Profile | Athlete profile | Scout profile |
 
 ## Project layout
 
 ```
 AthleteApp/
-  Models/          # Roles, athlete profiles, connections, messages
-  Data/            # MockData + AppStore (in-memory state)
-  Theme/           # Pitch-green athletic palette
-  Navigation/      # Main tab shell
+  Models/          # Profiles, connections, activity, notifications
+  Data/            # MockData + AppStore
+  Theme/           # Cobalt + Source Serif 4 / IBM Plex Sans
+  Navigation/      # 4-tab shell
   Features/
-    Onboarding/    # Role picker
-    Profile/       # Own profile + detail
-    Discovery/     # Feed / search
-    Connect/       # Connection request
-    Inbox/         # Threads + requests stub
+    Onboarding/
+    Home/          # Activity, notifications
+    Discovery/
+    Connect/
+    Inbox/
+    Network/       # Connections, shortlist
+    Profile/       # Own profiles, edit, settings, highlights
 ```
 
 ## Typography
 
-Bundled brand pairing (White & Case–inspired, not their proprietary faces):
+- **Source Serif 4** — display / wordmark / stats  
+- **IBM Plex Sans** — UI body and chrome  
 
-- **Source Serif 4** — display / wordmark / stats
-- **IBM Plex Sans** — UI body and chrome
-
-Licenses ship under `AthleteApp/Fonts/`.
+Licenses under `AthleteApp/Fonts/`.
 
 ## Notes
 
-- `AthleteApp.xcodeproj` is generated; prefer editing `project.yml` then re-running `xcodegen generate`.
-- UI is light-mode, soccer-first, English only.
-- Next step after this shell: real auth/backend (e.g. Supabase), media highlights, and verification.
+- Prefer editing `project.yml` then `xcodegen generate`.
+- Light mode, English, soccer-first. Next: auth/backend, real media, verification.

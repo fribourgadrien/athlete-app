@@ -7,7 +7,7 @@ struct ContentView: View {
         Group {
             if store.hasCompletedOnboarding {
                 MainTabView()
-                    .transition(.opacity.combined(with: .move(edge: .trailing)))
+                    .transition(.opacity)
             } else {
                 RolePickerView()
                     .transition(.opacity)

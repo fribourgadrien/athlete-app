@@ -6,13 +6,11 @@ struct MainTabView: View {
 
     var body: some View {
         TabView(selection: $selectedTab) {
-            NavigationStack {
-                AthleteProfileView()
-            }
-            .tabItem {
-                Label("Profile", systemImage: "person")
-            }
-            .tag(0)
+            HomeView()
+                .tabItem {
+                    Label(store.isScout ? "Pipeline" : "Home", systemImage: "house")
+                }
+                .tag(0)
 
             DiscoveryFeedView()
                 .tabItem {
@@ -26,6 +24,18 @@ struct MainTabView: View {
                 }
                 .badge(inboxBadge)
                 .tag(2)
+
+            NavigationStack {
+                if store.isScout {
+                    ScoutProfileView()
+                } else {
+                    AthleteProfileView()
+                }
+            }
+            .tabItem {
+                Label("Profile", systemImage: "person")
+            }
+            .tag(3)
         }
         .tint(AppTheme.cobalt)
         .overlay(alignment: .top) {
