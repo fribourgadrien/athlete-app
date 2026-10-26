@@ -10,39 +10,34 @@ struct ConnectRequestView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 20) {
-                HStack(spacing: 14) {
-                    AvatarView(initials: athlete.initials, size: 56)
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text(athlete.fullName)
-                            .font(.title3.weight(.bold))
-                            .foregroundStyle(AppTheme.charcoal)
-                        Text("\(athlete.position.label) · \(athlete.club)")
-                            .font(.subheadline)
-                            .foregroundStyle(AppTheme.slate)
-                    }
+            VStack(alignment: .leading, spacing: 24) {
+                VStack(alignment: .leading, spacing: 6) {
+                    Text(athlete.fullName)
+                        .font(AppFont.display(24, weight: .medium))
+                        .foregroundStyle(AppTheme.ink)
+                    Text("\(athlete.position.label)  ·  \(athlete.club)")
+                        .font(AppFont.ui(14))
+                        .foregroundStyle(AppTheme.muted)
                 }
 
-                Text("Introduce yourself and why you’d like to connect. Keep it professional — scouts and athletes both see this note.")
-                    .font(.subheadline)
-                    .foregroundStyle(AppTheme.slate)
+                Text("A short note introduces you. Both sides see it.")
+                    .font(AppFont.ui(14))
+                    .foregroundStyle(AppTheme.muted)
 
                 VStack(alignment: .leading, spacing: 8) {
-                    Text("Message")
-                        .font(.caption.weight(.semibold))
-                        .foregroundStyle(AppTheme.slate)
+                    Text("MESSAGE")
+                        .font(AppFont.ui(11, weight: .semibold))
+                        .tracking(1.0)
+                        .foregroundStyle(AppTheme.muted)
 
                     TextEditor(text: $message)
                         .focused($focused)
+                        .font(AppFont.ui(15))
                         .frame(minHeight: 140)
-                        .padding(10)
+                        .padding(12)
                         .scrollContentBackground(.hidden)
-                        .background(Color.white.opacity(0.85))
-                        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 12, style: .continuous)
-                                .stroke(AppTheme.mist, lineWidth: 1)
-                        )
+                        .background(AppTheme.surface)
+                        .overlay(Rectangle().stroke(AppTheme.rule, lineWidth: 1))
                 }
 
                 Button("Send request") {
@@ -63,9 +58,10 @@ struct ConnectRequestView: View {
             }
             .padding(20)
         }
-        .background(AppTheme.backgroundGradient.ignoresSafeArea())
+        .background(AppTheme.paper.ignoresSafeArea())
         .navigationTitle("Connect")
         .navigationBarTitleDisplayMode(.inline)
+        .toolbarBackground(AppTheme.paper, for: .navigationBar)
         .onAppear {
             if message.isEmpty {
                 message = defaultMessage

@@ -10,54 +10,48 @@ struct ProfileDetailView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 22) {
+            VStack(alignment: .leading, spacing: 28) {
                 hero
-                stats
+                Hairline()
+                StatsLine(stats: athlete.stats)
+                Hairline()
                 about
                 achievements
                 connectCTA
             }
-            .padding(20)
-            .padding(.bottom, 24)
+            .padding(.horizontal, 20)
+            .padding(.top, 12)
+            .padding(.bottom, 40)
         }
-        .background(AppTheme.backgroundGradient.ignoresSafeArea())
+        .background(AppTheme.paper.ignoresSafeArea())
         .navigationTitle(athlete.displayName)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbarBackground(AppTheme.paper, for: .navigationBar)
     }
 
     private var hero: some View {
         VStack(alignment: .leading, spacing: 14) {
-            HStack(spacing: 16) {
-                AvatarView(initials: athlete.initials, size: 68)
+            HStack(alignment: .top, spacing: 16) {
+                AvatarView(initials: athlete.initials, size: 56)
                 VStack(alignment: .leading, spacing: 6) {
                     Text(athlete.fullName)
-                        .font(.system(size: 24, weight: .bold, design: .rounded))
-                        .foregroundStyle(AppTheme.charcoal)
-                    Text("\(athlete.position.label) · \(athlete.nationality)")
-                        .font(.subheadline)
-                        .foregroundStyle(AppTheme.slate)
+                        .font(AppFont.display(26, weight: .medium))
+                        .foregroundStyle(AppTheme.ink)
+                    Text("\(athlete.position.label)  ·  \(athlete.nationality)")
+                        .font(AppFont.ui(14))
+                        .foregroundStyle(AppTheme.muted)
                     LevelBadge(level: athlete.level)
                 }
             }
 
             Text(athlete.bio)
-                .font(.body)
-                .foregroundStyle(AppTheme.charcoal)
+                .font(AppFont.ui(15))
+                .foregroundStyle(AppTheme.ink)
+                .lineSpacing(3)
 
-            Text("\(athlete.club) · \(athlete.location)")
-                .font(.subheadline.weight(.medium))
-                .foregroundStyle(AppTheme.pitch)
-        }
-    }
-
-    private var stats: some View {
-        HStack(spacing: 10) {
-            StatTile(label: "Apps", value: "\(athlete.stats.appearances)")
-            StatTile(label: "Goals", value: "\(athlete.stats.goals)")
-            StatTile(label: "Assists", value: "\(athlete.stats.assists)")
-            if let clean = athlete.stats.cleanSheets {
-                StatTile(label: "CS", value: "\(clean)")
-            }
+            Text("\(athlete.club)  ·  \(athlete.location)")
+                .font(AppFont.ui(13, weight: .medium))
+                .foregroundStyle(AppTheme.ink)
         }
     }
 
@@ -73,20 +67,16 @@ struct ProfileDetailView: View {
     private var achievements: some View {
         ProfileSection(title: "Achievements") {
             ForEach(athlete.achievements, id: \.self) { item in
-                HStack(alignment: .top, spacing: 10) {
-                    Image(systemName: "checkmark.seal.fill")
-                        .foregroundStyle(AppTheme.turf)
-                    Text(item)
-                        .font(.subheadline)
-                        .foregroundStyle(AppTheme.charcoal)
-                }
+                Text(item)
+                    .font(AppFont.ui(14))
+                    .foregroundStyle(AppTheme.ink)
             }
         }
     }
 
     @ViewBuilder
     private var connectCTA: some View {
-        VStack(spacing: 10) {
+        Group {
             switch status {
             case .none:
                 NavigationLink {
@@ -98,12 +88,11 @@ struct ProfileDetailView: View {
 
             case .pendingOutgoing:
                 Text("Request pending")
-                    .font(.headline)
-                    .foregroundStyle(AppTheme.slate)
+                    .font(AppFont.ui(14, weight: .medium))
+                    .foregroundStyle(AppTheme.muted)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 14)
-                    .background(AppTheme.mist)
-                    .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                    .overlay(Rectangle().stroke(AppTheme.rule, lineWidth: 1))
 
             case .pendingIncoming:
                 Button("Accept connection") {
@@ -116,13 +105,12 @@ struct ProfileDetailView: View {
                 .buttonStyle(PrimaryButtonStyle())
 
             case .connected:
-                Label("Connected", systemImage: "person.2.fill")
-                    .font(.headline)
-                    .foregroundStyle(AppTheme.pitch)
+                Text("Connected")
+                    .font(AppFont.ui(14, weight: .medium))
+                    .foregroundStyle(AppTheme.muted)
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 14)
-                    .background(AppTheme.pitch.opacity(0.1))
-                    .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                    .overlay(Rectangle().stroke(AppTheme.rule, lineWidth: 1))
             }
         }
         .padding(.top, 8)

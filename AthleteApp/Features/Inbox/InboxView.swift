@@ -7,17 +7,24 @@ struct InboxView: View {
         NavigationStack {
             List {
                 if !incomingRequests.isEmpty {
-                    Section("Requests") {
+                    Section {
                         ForEach(incomingRequests) { request in
                             IncomingRequestRow(request: request)
                         }
+                    } header: {
+                        Text("Requests")
+                            .font(AppFont.ui(11, weight: .semibold))
+                            .tracking(1.0)
+                            .foregroundStyle(AppTheme.muted)
+                            .textCase(nil)
                     }
                 }
 
-                Section("Messages") {
+                Section {
                     if store.threads.isEmpty {
                         Text("No conversations yet.")
-                            .foregroundStyle(AppTheme.slate)
+                            .font(AppFont.ui(14))
+                            .foregroundStyle(AppTheme.muted)
                     } else {
                         ForEach(store.threads) { thread in
                             NavigationLink(value: thread) {
@@ -25,11 +32,20 @@ struct InboxView: View {
                             }
                         }
                     }
+                } header: {
+                    Text("Messages")
+                        .font(AppFont.ui(11, weight: .semibold))
+                        .tracking(1.0)
+                        .foregroundStyle(AppTheme.muted)
+                        .textCase(nil)
                 }
             }
+            .listStyle(.plain)
             .scrollContentBackground(.hidden)
-            .background(AppTheme.backgroundGradient.ignoresSafeArea())
+            .listRowSeparatorTint(AppTheme.rule)
+            .background(AppTheme.paper.ignoresSafeArea())
             .navigationTitle("Inbox")
+            .toolbarBackground(AppTheme.paper, for: .navigationBar)
             .navigationDestination(for: MessageThread.self) { thread in
                 ThreadDetailView(threadID: thread.id)
             }
@@ -47,79 +63,81 @@ struct IncomingRequestRow: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            HStack {
+            HStack(alignment: .firstTextBaseline) {
                 Text(request.fromUserName)
-                    .font(.headline)
-                    .foregroundStyle(AppTheme.charcoal)
+                    .font(AppFont.ui(15, weight: .medium))
+                    .foregroundStyle(AppTheme.ink)
                 Spacer()
                 Text(request.createdAt, style: .relative)
-                    .font(.caption)
-                    .foregroundStyle(AppTheme.slate)
+                    .font(AppFont.ui(12))
+                    .foregroundStyle(AppTheme.muted)
             }
 
             Text(request.message)
-                .font(.subheadline)
-                .foregroundStyle(AppTheme.slate)
+                .font(AppFont.ui(14))
+                .foregroundStyle(AppTheme.muted)
                 .fixedSize(horizontal: false, vertical: true)
 
-            HStack(spacing: 10) {
+            HStack(spacing: 16) {
                 Button("Accept") {
                     store.acceptIncomingRequest(request)
                 }
-                .buttonStyle(PrimaryButtonStyle())
+                .font(AppFont.ui(14, weight: .semibold))
+                .foregroundStyle(AppTheme.ink)
 
                 Button("Later") {}
-                    .buttonStyle(SecondaryButtonStyle())
+                    .font(AppFont.ui(14))
+                    .foregroundStyle(AppTheme.muted)
             }
+            .padding(.top, 2)
         }
-        .padding(.vertical, 6)
-        .listRowBackground(Color.white.opacity(0.7))
+        .padding(.vertical, 8)
+        .listRowBackground(AppTheme.paper)
+        .listRowInsets(EdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20))
     }
 }
 
 struct ThreadRow: View {
     let thread: MessageThread
 
-    var body: some View {
-        HStack(spacing: 12) {
-            ZStack(alignment: .bottomTrailing) {
-                AvatarView(
-                    initials: String(thread.participantName.split(separator: " ").compactMap(\.first).prefix(2)),
-                    size: 44
-                )
-                Circle()
-                    .fill(thread.participantRole == .scout ? AppTheme.amber : AppTheme.turf)
-                    .frame(width: 10, height: 10)
-                    .overlay(Circle().stroke(.white, lineWidth: 1.5))
-            }
+    private var initials: String {
+        String(thread.participantName.split(separator: " ").compactMap(\.first).prefix(2))
+    }
 
-            VStack(alignment: .leading, spacing: 4) {
-                HStack {
+    var body: some View {
+        HStack(alignment: .top, spacing: 12) {
+            AvatarView(initials: initials, size: 36)
+
+            VStack(alignment: .leading, spacing: 3) {
+                HStack(alignment: .firstTextBaseline) {
                     Text(thread.participantName)
-                        .font(.headline)
-                        .foregroundStyle(AppTheme.charcoal)
+                        .font(AppFont.ui(15, weight: .medium))
+                        .foregroundStyle(AppTheme.ink)
                     Spacer()
                     Text(thread.updatedAt, style: .time)
-                        .font(.caption2)
-                        .foregroundStyle(AppTheme.slate)
+                        .font(AppFont.ui(11))
+                        .foregroundStyle(AppTheme.muted)
                 }
 
-                Text(thread.preview)
-                    .font(.subheadline)
-                    .foregroundStyle(AppTheme.slate)
-                    .lineLimit(1)
-            }
+                HStack(alignment: .firstTextBaseline) {
+                    Text(thread.preview)
+                        .font(AppFont.ui(13))
+                        .foregroundStyle(AppTheme.muted)
+                        .lineLimit(1)
+                    if thread.unreadCount > 0 {
+                        Text("\(thread.unreadCount)")
+                            .font(AppFont.ui(11, weight: .semibold))
+                            .foregroundStyle(AppTheme.ink)
+                    }
+                }
 
-            if thread.unreadCount > 0 {
-                Text("\(thread.unreadCount)")
-                    .font(.caption2.weight(.bold))
-                    .foregroundStyle(.white)
-                    .padding(6)
-                    .background(AppTheme.pitch)
-                    .clipShape(Circle())
+                Text(thread.participantRole == .scout ? "Scout" : "Athlete")
+                    .font(AppFont.ui(11))
+                    .foregroundStyle(AppTheme.muted)
             }
         }
         .padding(.vertical, 4)
+        .listRowBackground(AppTheme.paper)
     }
 }
 
@@ -138,13 +156,13 @@ struct ThreadDetailView: View {
                 VStack(spacing: 0) {
                     ScrollViewReader { proxy in
                         ScrollView {
-                            LazyVStack(alignment: .leading, spacing: 12) {
+                            LazyVStack(alignment: .leading, spacing: 16) {
                                 ForEach(thread.messages) { message in
                                     MessageBubble(message: message)
                                         .id(message.id)
                                 }
                             }
-                            .padding(16)
+                            .padding(20)
                         }
                         .onAppear {
                             if let last = thread.messages.last {
@@ -153,40 +171,43 @@ struct ThreadDetailView: View {
                         }
                         .onChange(of: thread.messages.count) { _, _ in
                             if let last = store.threads.first(where: { $0.id == threadID })?.messages.last {
-                                withAnimation {
+                                withAnimation(.easeOut(duration: 0.25)) {
                                     proxy.scrollTo(last.id, anchor: .bottom)
                                 }
                             }
                         }
                     }
 
-                    HStack(spacing: 10) {
-                        TextField("Write a message…", text: $draft, axis: .vertical)
+                    Hairline()
+                    HStack(alignment: .bottom, spacing: 12) {
+                        TextField("Message", text: $draft, axis: .vertical)
+                            .font(AppFont.ui(15))
                             .lineLimit(1...4)
-                            .padding(12)
-                            .background(Color.white.opacity(0.9))
-                            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                            .padding(.vertical, 10)
 
-                        Button {
+                        Button("Send") {
                             let body = draft.trimmingCharacters(in: .whitespacesAndNewlines)
                             guard !body.isEmpty else { return }
                             store.appendLocalReply(threadID: threadID, body: body)
                             draft = ""
-                        } label: {
-                            Image(systemName: "arrow.up.circle.fill")
-                                .font(.system(size: 32))
-                                .foregroundStyle(AppTheme.pitch)
                         }
+                        .font(AppFont.ui(14, weight: .semibold))
+                        .foregroundStyle(AppTheme.ink)
                         .disabled(draft.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+                        .opacity(draft.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? 0.35 : 1)
                     }
-                    .padding(12)
-                    .background(AppTheme.mist.opacity(0.9))
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 8)
+                    .background(AppTheme.paper)
                 }
-                .background(AppTheme.backgroundGradient.ignoresSafeArea())
+                .background(AppTheme.paper.ignoresSafeArea())
                 .navigationTitle(thread.participantName)
                 .navigationBarTitleDisplayMode(.inline)
+                .toolbarBackground(AppTheme.paper, for: .navigationBar)
             } else {
-                ContentUnavailableView("Thread unavailable", systemImage: "bubble.left.and.bubble.right")
+                Text("Thread unavailable")
+                    .font(AppFont.ui(14))
+                    .foregroundStyle(AppTheme.muted)
             }
         }
     }
@@ -196,24 +217,16 @@ struct MessageBubble: View {
     let message: ChatMessage
 
     var body: some View {
-        HStack {
-            if message.isFromCurrentUser { Spacer(minLength: 48) }
+        VStack(alignment: message.isFromCurrentUser ? .trailing : .leading, spacing: 4) {
+            Text(message.body)
+                .font(AppFont.ui(15))
+                .foregroundStyle(AppTheme.ink)
+                .multilineTextAlignment(message.isFromCurrentUser ? .trailing : .leading)
+                .frame(maxWidth: .infinity, alignment: message.isFromCurrentUser ? .trailing : .leading)
 
-            VStack(alignment: message.isFromCurrentUser ? .trailing : .leading, spacing: 4) {
-                Text(message.body)
-                    .font(.body)
-                    .foregroundStyle(message.isFromCurrentUser ? .white : AppTheme.charcoal)
-                    .padding(.horizontal, 14)
-                    .padding(.vertical, 10)
-                    .background(message.isFromCurrentUser ? AppTheme.pitch : Color.white.opacity(0.9))
-                    .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-
-                Text(message.sentAt, style: .time)
-                    .font(.caption2)
-                    .foregroundStyle(AppTheme.slate)
-            }
-
-            if !message.isFromCurrentUser { Spacer(minLength: 48) }
+            Text(message.sentAt, style: .time)
+                .font(AppFont.ui(11))
+                .foregroundStyle(AppTheme.muted)
         }
     }
 }

@@ -10,38 +10,37 @@ struct MainTabView: View {
                 AthleteProfileView()
             }
             .tabItem {
-                Label("Profile", systemImage: "person.crop.circle.fill")
+                Label("Profile", systemImage: "person")
             }
             .tag(0)
 
             DiscoveryFeedView()
                 .tabItem {
-                    Label("Discover", systemImage: "sportscourt.fill")
+                    Label("Discover", systemImage: "magnifyingglass")
                 }
                 .tag(1)
 
             InboxView()
                 .tabItem {
-                    Label("Inbox", systemImage: "bubble.left.and.bubble.right.fill")
+                    Label("Inbox", systemImage: "envelope")
                 }
                 .badge(inboxBadge)
                 .tag(2)
         }
-        .tint(AppTheme.pitch)
+        .tint(AppTheme.ink)
         .overlay(alignment: .top) {
             if let toast = store.toastMessage {
                 Text(toast)
-                    .font(.subheadline.weight(.semibold))
-                    .foregroundStyle(.white)
+                    .font(AppFont.ui(13, weight: .medium))
+                    .foregroundStyle(AppTheme.paper)
                     .padding(.horizontal, 16)
                     .padding(.vertical, 10)
-                    .background(AppTheme.pitchDeep.opacity(0.95))
-                    .clipShape(Capsule())
+                    .background(AppTheme.ink)
                     .padding(.top, 8)
-                    .transition(.move(edge: .top).combined(with: .opacity))
-                    .animation(.spring(response: 0.35), value: store.toastMessage)
+                    .transition(.opacity)
             }
         }
+        .animation(.easeOut(duration: 0.25), value: store.toastMessage)
     }
 
     private var inboxBadge: Int {

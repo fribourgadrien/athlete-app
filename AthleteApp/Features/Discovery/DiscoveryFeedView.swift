@@ -3,95 +3,123 @@ import SwiftUI
 struct DiscoveryFeedView: View {
     @EnvironmentObject private var store: AppStore
 
+    private let positionOptions: [SoccerPosition?] = [nil] + SoccerPosition.allCases.map { Optional($0) }
+    private let levelOptions: [CompetitiveLevel?] = [nil] + CompetitiveLevel.allCases.map { Optional($0) }
+
     var body: some View {
         NavigationStack {
             VStack(spacing: 0) {
-                searchBar
-                filterBar
+                searchField
+                Hairline()
+                filterRow
+                Hairline()
 
                 if store.filteredAthletes.isEmpty {
-                    ContentUnavailableView(
-                        "No athletes match",
-                        systemImage: "sportscourt",
-                        description: Text("Try clearing filters or refining your search.")
-                    )
-                    .frame(maxHeight: .infinity)
+                    VStack(spacing: 8) {
+                        Spacer()
+                        Text("No matches")
+                            .font(AppFont.display(22, weight: .medium))
+                            .foregroundStyle(AppTheme.ink)
+                        Text("Clear filters or refine your search.")
+                            .font(AppFont.ui(14))
+                            .foregroundStyle(AppTheme.muted)
+                        Spacer()
+                    }
+                    .frame(maxWidth: .infinity)
                 } else {
                     List(store.filteredAthletes) { athlete in
                         NavigationLink(value: athlete) {
                             AthleteRow(athlete: athlete)
                         }
-                        .listRowBackground(Color.white.opacity(0.55))
-                        .listRowSeparatorTint(AppTheme.mist)
+                        .listRowInsets(EdgeInsets(top: 14, leading: 20, bottom: 14, trailing: 20))
+                        .listRowBackground(AppTheme.paper)
+                        .listRowSeparatorTint(AppTheme.rule)
                     }
                     .listStyle(.plain)
                     .scrollContentBackground(.hidden)
                 }
             }
-            .background(AppTheme.backgroundGradient.ignoresSafeArea())
+            .background(AppTheme.paper.ignoresSafeArea())
             .navigationTitle("Discover")
+            .navigationBarTitleDisplayMode(.large)
+            .toolbarBackground(AppTheme.paper, for: .navigationBar)
             .navigationDestination(for: AthleteProfile.self) { athlete in
                 ProfileDetailView(athlete: athlete)
             }
         }
     }
 
-    private var searchBar: some View {
+    private var searchField: some View {
         HStack(spacing: 10) {
-            Image(systemName: "magnifyingglass")
-                .foregroundStyle(AppTheme.slate)
-            TextField("Search name, club, city, position", text: $store.searchText)
+            Text("Search")
+                .font(AppFont.ui(13, weight: .medium))
+                .foregroundStyle(AppTheme.muted)
+            TextField("Name, club, city, position", text: $store.searchText)
+                .font(AppFont.ui(15))
+                .foregroundStyle(AppTheme.ink)
                 .textInputAutocapitalization(.never)
                 .disableAutocorrection(true)
         }
-        .padding(12)
-        .background(.white.opacity(0.8))
-        .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-        .padding(.horizontal, 16)
-        .padding(.top, 8)
-        .padding(.bottom, 10)
+        .padding(.horizontal, 20)
+        .padding(.vertical, 14)
     }
 
-    private var filterBar: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 8) {
-                FilterChip(
-                    title: "All positions",
-                    isSelected: store.selectedPosition == nil
-                ) {
-                    store.selectedPosition = nil
-                }
-
-                ForEach(SoccerPosition.allCases) { position in
-                    FilterChip(
-                        title: position.rawValue,
-                        isSelected: store.selectedPosition == position
+    private var filterRow: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            filterGroup(label: "Position") {
+                ForEach(Array(positionOptions.enumerated()), id: \.offset) { _, option in
+                    filterText(
+                        title: option?.rawValue ?? "All",
+                        selected: store.selectedPosition == option
                     ) {
-                        store.selectedPosition = store.selectedPosition == position ? nil : position
-                    }
-                }
-
-                Divider().frame(height: 20)
-
-                FilterChip(
-                    title: "All levels",
-                    isSelected: store.selectedLevel == nil
-                ) {
-                    store.selectedLevel = nil
-                }
-
-                ForEach(CompetitiveLevel.allCases) { level in
-                    FilterChip(
-                        title: level.rawValue,
-                        isSelected: store.selectedLevel == level
-                    ) {
-                        store.selectedLevel = store.selectedLevel == level ? nil : level
+                        store.selectedPosition = option
                     }
                 }
             }
-            .padding(.horizontal, 16)
-            .padding(.bottom, 12)
+            filterGroup(label: "Level") {
+                ForEach(Array(levelOptions.enumerated()), id: \.offset) { _, option in
+                    filterText(
+                        title: option?.rawValue ?? "All",
+                        selected: store.selectedLevel == option
+                    ) {
+                        store.selectedLevel = option
+                    }
+                }
+            }
         }
+        .padding(.horizontal, 20)
+        .padding(.vertical, 12)
+    }
+
+    private func filterGroup<Content: View>(label: String, @ViewBuilder content: () -> Content) -> some View {
+        HStack(alignment: .firstTextBaseline, spacing: 12) {
+            Text(label)
+                .font(AppFont.ui(12, weight: .medium))
+                .foregroundStyle(AppTheme.muted)
+                .frame(width: 56, alignment: .leading)
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 14) {
+                    content()
+                }
+            }
+        }
+    }
+
+    private func filterText(title: String, selected: Bool, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Text(title)
+                .font(AppFont.ui(13, weight: selected ? .semibold : .regular))
+                .foregroundStyle(selected ? AppTheme.ink : AppTheme.muted)
+                .overlay(alignment: .bottom) {
+                    if selected {
+                        Rectangle()
+                            .fill(AppTheme.ink)
+                            .frame(height: 1)
+                            .offset(y: 3)
+                    }
+                }
+        }
+        .buttonStyle(.plain)
     }
 }
 
@@ -99,49 +127,29 @@ struct AthleteRow: View {
     let athlete: AthleteProfile
 
     var body: some View {
-        HStack(spacing: 14) {
-            AvatarView(initials: athlete.initials, size: 48)
+        HStack(alignment: .top, spacing: 14) {
+            AvatarView(initials: athlete.initials, size: 40)
 
             VStack(alignment: .leading, spacing: 4) {
-                HStack {
+                HStack(alignment: .firstTextBaseline) {
                     Text(athlete.fullName)
-                        .font(.headline)
-                        .foregroundStyle(AppTheme.charcoal)
-                    Spacer()
+                        .font(AppFont.ui(16, weight: .medium))
+                        .foregroundStyle(AppTheme.ink)
+                    Spacer(minLength: 8)
                     Text(athlete.position.rawValue)
-                        .font(.caption.weight(.bold))
-                        .foregroundStyle(AppTheme.pitch)
+                        .font(AppFont.ui(12, weight: .medium))
+                        .foregroundStyle(AppTheme.muted)
                 }
 
-                Text("\(athlete.club) · \(athlete.level.rawValue)")
-                    .font(.subheadline)
-                    .foregroundStyle(AppTheme.slate)
+                Text("\(athlete.club)  ·  \(athlete.level.rawValue)")
+                    .font(AppFont.ui(13))
+                    .foregroundStyle(AppTheme.muted)
                     .lineLimit(1)
 
-                Text("\(athlete.location) · \(athlete.stats.goals)G \(athlete.stats.assists)A")
-                    .font(.caption)
-                    .foregroundStyle(AppTheme.slate)
+                Text("\(athlete.location)  ·  \(athlete.stats.goals)G \(athlete.stats.assists)A")
+                    .font(AppFont.ui(12))
+                    .foregroundStyle(AppTheme.muted)
             }
         }
-        .padding(.vertical, 6)
-    }
-}
-
-struct FilterChip: View {
-    let title: String
-    let isSelected: Bool
-    let action: () -> Void
-
-    var body: some View {
-        Button(action: action) {
-            Text(title)
-                .font(.caption.weight(.semibold))
-                .foregroundStyle(isSelected ? .white : AppTheme.pitch)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 7)
-                .background(isSelected ? AppTheme.pitch : Color.white.opacity(0.85))
-                .clipShape(Capsule())
-        }
-        .buttonStyle(.plain)
     }
 }

@@ -1,61 +1,77 @@
 import SwiftUI
 
+/// Design tokens — ink on paper, one brand accent used sparingly.
 enum AppTheme {
-    static let pitch = Color(red: 0.07, green: 0.28, blue: 0.20)
-    static let pitchDeep = Color(red: 0.04, green: 0.16, blue: 0.12)
-    static let turf = Color(red: 0.18, green: 0.52, blue: 0.36)
-    static let chalk = Color(red: 0.96, green: 0.97, blue: 0.95)
-    static let mist = Color(red: 0.90, green: 0.93, blue: 0.91)
-    static let charcoal = Color(red: 0.12, green: 0.14, blue: 0.13)
-    static let slate = Color(red: 0.35, green: 0.40, blue: 0.38)
-    static let amber = Color(red: 0.78, green: 0.55, blue: 0.18)
-    static let danger = Color(red: 0.72, green: 0.22, blue: 0.18)
+    static let paper = Color(red: 0.965, green: 0.961, blue: 0.953)      // #F6F5F3
+    static let ink = Color(red: 0.07, green: 0.07, blue: 0.07)           // #121212
+    static let muted = Color(red: 0.42, green: 0.42, blue: 0.41)          // #6B6B69
+    static let rule = Color(red: 0.86, green: 0.85, blue: 0.83)           // #DBD9D4
+    static let accent = Color(red: 0.09, green: 0.27, blue: 0.20)         // #174533 — CTAs only
+    static let surface = Color.white
+
+    // Legacy aliases kept so call sites compile during migration
+    static let pitch = accent
+    static let pitchDeep = ink
+    static let turf = accent
+    static let chalk = paper
+    static let mist = rule.opacity(0.45)
+    static let charcoal = ink
+    static let slate = muted
+    static let amber = accent
+    static let danger = Color(red: 0.55, green: 0.12, blue: 0.10)
 
     static var backgroundGradient: LinearGradient {
-        LinearGradient(
-            colors: [
-                chalk,
-                mist,
-                Color(red: 0.86, green: 0.91, blue: 0.88)
-            ],
-            startPoint: .topLeading,
-            endPoint: .bottomTrailing
-        )
+        LinearGradient(colors: [paper, paper], startPoint: .top, endPoint: .bottom)
     }
 
     static var heroGradient: LinearGradient {
-        LinearGradient(
-            colors: [pitchDeep, pitch, turf.opacity(0.85)],
-            startPoint: .topLeading,
-            endPoint: .bottomTrailing
-        )
+        LinearGradient(colors: [ink, ink], startPoint: .top, endPoint: .bottom)
+    }
+}
+
+enum AppFont {
+    static func display(_ size: CGFloat, weight: Font.Weight = .regular) -> Font {
+        .system(size: size, weight: weight, design: .serif)
+    }
+
+    static func ui(_ size: CGFloat, weight: Font.Weight = .regular) -> Font {
+        .system(size: size, weight: weight, design: .default)
     }
 }
 
 struct PrimaryButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(.headline.weight(.semibold))
-            .foregroundStyle(.white)
+            .font(AppFont.ui(15, weight: .semibold))
+            .foregroundStyle(AppTheme.paper)
             .frame(maxWidth: .infinity)
             .padding(.vertical, 14)
-            .background(AppTheme.pitch)
-            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-            .opacity(configuration.isPressed ? 0.88 : 1)
-            .scaleEffect(configuration.isPressed ? 0.98 : 1)
-            .animation(.easeOut(duration: 0.15), value: configuration.isPressed)
+            .background(AppTheme.ink)
+            .opacity(configuration.isPressed ? 0.75 : 1)
     }
 }
 
 struct SecondaryButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .font(.headline.weight(.semibold))
-            .foregroundStyle(AppTheme.pitch)
+            .font(AppFont.ui(15, weight: .medium))
+            .foregroundStyle(AppTheme.ink)
             .frame(maxWidth: .infinity)
             .padding(.vertical, 14)
-            .background(AppTheme.mist)
-            .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
-            .opacity(configuration.isPressed ? 0.88 : 1)
+            .overlay(
+                Rectangle()
+                    .stroke(AppTheme.rule, lineWidth: 1)
+            )
+            .opacity(configuration.isPressed ? 0.7 : 1)
+    }
+}
+
+struct TextLinkButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(AppFont.ui(14, weight: .medium))
+            .foregroundStyle(AppTheme.ink)
+            .opacity(configuration.isPressed ? 0.5 : 1)
+            .underline(true, pattern: .solid, color: AppTheme.rule)
     }
 }

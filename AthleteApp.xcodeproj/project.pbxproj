@@ -17,6 +17,7 @@
 		26D4C182B30E685981AE85E5 /* ConnectRequestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE159F3E5F9B0FEDAE41CACC /* ConnectRequestView.swift */; };
 		4746EE2DCDD13491768A3A41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F808DAE705A47291DCC022D7 /* Assets.xcassets */; };
 		48A9C70156A8A0E7D9954D9D /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BC99ED0BDC11698A21EC957 /* MockData.swift */; };
+		50ED23E66DFB8EA8065EE175 /* SharedChrome.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05C27589F0226FCCB5CC956 /* SharedChrome.swift */; };
 		61351F6B0F231FC8671496D3 /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 169BF0E4DB63C092ABFD5904 /* AppTheme.swift */; };
 		A369110D114206B1CE7134EA /* UserRole.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CD280975C03B144D5170C0D /* UserRole.swift */; };
 		A6BD1C93FBF23302151965BE /* AppStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7BC497A855603634BA6FA17 /* AppStore.swift */; };
@@ -35,6 +36,7 @@
 		8103447888DCA25C984A28DA /* ConnectionModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionModels.swift; sourceTree = "<group>"; };
 		90D552E35DD0CDBEA467D440 /* AthleteProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AthleteProfileView.swift; sourceTree = "<group>"; };
 		BA1A0E5DF8422032180C67D4 /* DiscoveryFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoveryFeedView.swift; sourceTree = "<group>"; };
+		C05C27589F0226FCCB5CC956 /* SharedChrome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedChrome.swift; sourceTree = "<group>"; };
 		C94C276FF440CE01DA6A1CB4 /* AthleteApp.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = AthleteApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD2A35499D2045BEF2AB187B /* ProfileDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileDetailView.swift; sourceTree = "<group>"; };
 		D7BC497A855603634BA6FA17 /* AppStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStore.swift; sourceTree = "<group>"; };
@@ -50,6 +52,7 @@
 			isa = PBXGroup;
 			children = (
 				169BF0E4DB63C092ABFD5904 /* AppTheme.swift */,
+				C05C27589F0226FCCB5CC956 /* SharedChrome.swift */,
 			);
 			path = Theme;
 			sourceTree = "<group>";
@@ -246,6 +249,7 @@
 				48A9C70156A8A0E7D9954D9D /* MockData.swift in Sources */,
 				1B9D274538687E27FEC97820 /* ProfileDetailView.swift in Sources */,
 				2059C823728231ECABC019C3 /* RolePickerView.swift in Sources */,
+				50ED23E66DFB8EA8065EE175 /* SharedChrome.swift in Sources */,
 				A369110D114206B1CE7134EA /* UserRole.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
