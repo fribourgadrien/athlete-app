@@ -6,26 +6,29 @@ struct RolePickerView: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Spacer(minLength: 64)
+            Spacer(minLength: 56)
 
-            VStack(alignment: .leading, spacing: 16) {
+            VStack(alignment: .leading, spacing: 18) {
                 Text("Athlete")
-                    .font(AppFont.display(44, weight: .medium))
-                    .foregroundStyle(AppTheme.ink)
+                    .font(AppFont.display(48, weight: .bold))
+                    .foregroundStyle(.white)
 
                 Text("Professional networking for soccer.")
-                    .font(AppFont.ui(17))
-                    .foregroundStyle(AppTheme.muted)
+                    .font(AppFont.displayItalic(18))
+                    .foregroundStyle(.white.opacity(0.85))
                     .fixedSize(horizontal: false, vertical: true)
             }
             .padding(.horizontal, 28)
             .opacity(appeared ? 1 : 0)
-            .offset(y: appeared ? 0 : 10)
+            .offset(y: appeared ? 0 : 12)
 
             Spacer()
 
             VStack(spacing: 0) {
-                Hairline()
+                Rectangle()
+                    .fill(.white.opacity(0.22))
+                    .frame(height: 1)
+
                 ForEach(UserRole.allCases) { role in
                     Button {
                         store.completeOnboarding(role: role)
@@ -33,30 +36,33 @@ struct RolePickerView: View {
                         HStack(alignment: .firstTextBaseline) {
                             VStack(alignment: .leading, spacing: 4) {
                                 Text(role.title)
-                                    .font(AppFont.ui(17, weight: .medium))
-                                    .foregroundStyle(AppTheme.ink)
+                                    .font(AppFont.ui(17, weight: .semibold))
+                                    .foregroundStyle(.white)
                                 Text(role.shortSubtitle)
                                     .font(AppFont.ui(14))
-                                    .foregroundStyle(AppTheme.muted)
+                                    .foregroundStyle(.white.opacity(0.72))
                             }
                             Spacer()
                             Text("→")
-                                .font(AppFont.ui(17))
-                                .foregroundStyle(AppTheme.muted)
+                                .font(AppFont.ui(17, weight: .medium))
+                                .foregroundStyle(.white.opacity(0.7))
                         }
                         .padding(.horizontal, 28)
                         .padding(.vertical, 20)
                         .contentShape(Rectangle())
                     }
                     .buttonStyle(.plain)
-                    Hairline()
+
+                    Rectangle()
+                        .fill(.white.opacity(0.22))
+                        .frame(height: 1)
                 }
             }
             .opacity(appeared ? 1 : 0)
-            .padding(.bottom, 24)
+            .padding(.bottom, 28)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(AppTheme.paper.ignoresSafeArea())
+        .background(AppTheme.cobalt.ignoresSafeArea())
         .onAppear {
             withAnimation(.easeOut(duration: 0.4)) {
                 appeared = true

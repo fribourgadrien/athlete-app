@@ -7,10 +7,10 @@ struct AvatarView: View {
 
     var body: some View {
         Text(initials)
-            .font(AppFont.ui(size * 0.32, weight: .medium))
-            .foregroundStyle(AppTheme.ink)
+            .font(AppFont.ui(size * 0.32, weight: .semibold))
+            .foregroundStyle(AppTheme.cobalt)
             .frame(width: size, height: size)
-            .background(AppTheme.paper)
+            .background(AppTheme.surface)
             .overlay(
                 Rectangle()
                     .stroke(AppTheme.rule, lineWidth: 1)

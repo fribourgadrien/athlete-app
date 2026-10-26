@@ -31,7 +31,7 @@ struct AthleteProfileView: View {
                     store.resetOnboarding()
                 }
                 .font(AppFont.ui(14, weight: .medium))
-                .foregroundStyle(AppTheme.ink)
+                .foregroundStyle(AppTheme.cobalt)
             }
         }
     }

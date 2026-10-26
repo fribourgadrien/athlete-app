@@ -51,7 +51,7 @@ struct ProfileDetailView: View {
 
             Text("\(athlete.club)  ·  \(athlete.location)")
                 .font(AppFont.ui(13, weight: .medium))
-                .foregroundStyle(AppTheme.ink)
+                .foregroundStyle(AppTheme.cobalt)
         }
     }
 

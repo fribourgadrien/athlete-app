@@ -27,15 +27,15 @@ struct MainTabView: View {
                 .badge(inboxBadge)
                 .tag(2)
         }
-        .tint(AppTheme.ink)
+        .tint(AppTheme.cobalt)
         .overlay(alignment: .top) {
             if let toast = store.toastMessage {
                 Text(toast)
                     .font(AppFont.ui(13, weight: .medium))
-                    .foregroundStyle(AppTheme.paper)
+                    .foregroundStyle(.white)
                     .padding(.horizontal, 16)
                     .padding(.vertical, 10)
-                    .background(AppTheme.ink)
+                    .background(AppTheme.cobalt)
                     .padding(.top, 8)
                     .transition(.opacity)
             }

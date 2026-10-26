@@ -109,11 +109,11 @@ struct DiscoveryFeedView: View {
         Button(action: action) {
             Text(title)
                 .font(AppFont.ui(13, weight: selected ? .semibold : .regular))
-                .foregroundStyle(selected ? AppTheme.ink : AppTheme.muted)
+                .foregroundStyle(selected ? AppTheme.cobalt : AppTheme.muted)
                 .overlay(alignment: .bottom) {
                     if selected {
                         Rectangle()
-                            .fill(AppTheme.ink)
+                            .fill(AppTheme.cobalt)
                             .frame(height: 1)
                             .offset(y: 3)
                     }

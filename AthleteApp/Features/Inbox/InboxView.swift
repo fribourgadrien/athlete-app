@@ -83,7 +83,7 @@ struct IncomingRequestRow: View {
                     store.acceptIncomingRequest(request)
                 }
                 .font(AppFont.ui(14, weight: .semibold))
-                .foregroundStyle(AppTheme.ink)
+                .foregroundStyle(AppTheme.cobalt)
 
                 Button("Later") {}
                     .font(AppFont.ui(14))
@@ -192,7 +192,7 @@ struct ThreadDetailView: View {
                             draft = ""
                         }
                         .font(AppFont.ui(14, weight: .semibold))
-                        .foregroundStyle(AppTheme.ink)
+                        .foregroundStyle(AppTheme.cobalt)
                         .disabled(draft.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                         .opacity(draft.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ? 0.35 : 1)
                     }
