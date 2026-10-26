@@ -165,7 +165,7 @@ enum MockData {
 
     static let sampleThreads: [MessageThread] = [
         MessageThread(
-            id: UUID(uuidString: "T1111111-1111-1111-1111-111111111111")!,
+            id: UUID(uuidString: "B1111111-1111-1111-1111-111111111111")!,
             participantName: "Elena Vargas",
             participantRole: .scout,
             athleteId: currentAthleteID,
@@ -190,7 +190,7 @@ enum MockData {
             ]
         ),
         MessageThread(
-            id: UUID(uuidString: "T2222222-2222-2222-2222-222222222222")!,
+            id: UUID(uuidString: "B2222222-2222-2222-2222-222222222222")!,
             participantName: "Maya Chen",
             participantRole: .athlete,
             athleteId: UUID(uuidString: "A2222222-2222-2222-2222-222222222222")!,
